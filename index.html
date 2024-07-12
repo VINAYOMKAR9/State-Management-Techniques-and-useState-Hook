@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Template</title>
+</head>
+<style>
+    #main{
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        width: 60%;
+        margin: auto;
+        border: 1px solid blue;
+        padding: 20px;
+    }
+    #int{
+        width: 400px;
+        margin: auto;
+    }
+    #box{
+        border: 1px solid black;
+        height: 400px;
+        width: 400px;
+        margin: auto;
+        background-color: #613d3d;
+    }
+    #tex{
+        margin:auto;
+        font-weight: 800;
+        color: red;
+    }
+</style>
+<body>
+    <div id="root"></div>
+</body>
+<script src="https://www.unpkg.com/react@18.2.0/umd/react.development.js"></script>
+<script src="https://www.unpkg.com/react-dom@18.2.0/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script type="text/babel">
+    // Your  code will go here
+
+
+    let Abc = () => {
+
+        function CheckIsvalid(hex){
+            let char = /^#([0-9A-F]{3}){1,2}$/i
+            return char.test(hex)
+        }
+
+        const [coll,setColor] = React.useState('#ffffffff')
+        const [isValid,setIsValid] = React.useState(true)
+        console.log('the color is',coll)
+        console.log('the hex is',isValid)
+
+        let chanfn = (event)=>{
+            let value = event.target.value
+            console.log(value)
+            setColor(value)
+            setIsValid(CheckIsvalid(value))
+        }
+
+        return (<div id='main'>
+        <input type="text"  placeholder='Enter HEX color values' value={coll} onChange={chanfn} name="" id="int" />
+        {!isValid && <p id='tex'> Enter valid hex value</p>}
+        <div id='box' style={{backgroundColor:coll}}>
+            </div>
+            </div>
+        )
+    }
+
+    let ele = <>
+    <Abc />
+    </>
+    let root = ReactDOM.createRoot(document.getElementById('root'))
+    root.render(ele)
+
+</script>
+
+</html>
